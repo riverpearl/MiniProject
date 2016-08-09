@@ -15,7 +15,7 @@ import okhttp3.ResponseBody;
 public abstract class NetworkRequest<T> implements Callback {
 
     public abstract Request getRequest();
-    protected abstract T parse(ResponseBody body);
+    protected abstract T parse(ResponseBody body) throws IOException;
 
     NetworkManager.OnResultListener<T> rListener;
     public void setOnResultListener(NetworkManager.OnResultListener<T> listener) {
