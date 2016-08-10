@@ -14,6 +14,7 @@ import com.tacademy.miniproject.autodata.User;
 import com.tacademy.miniproject.autodata.UserResult;
 import com.tacademy.miniproject.manager.NetworkManager;
 import com.tacademy.miniproject.manager.NetworkRequest;
+import com.tacademy.miniproject.manager.PropertyManager;
 import com.tacademy.miniproject.request.SignUpRequest;
 
 import butterknife.BindView;
@@ -50,14 +51,17 @@ public class SignUpFragment extends Fragment {
     @OnClick(R.id.btn_signup)
     public void onSignUp() {
         String name = nameView.getText().toString();
-        String email = emailView.getText().toString();
-        String password = passwordView.getText().toString();
+        final String email = emailView.getText().toString();
+        final String password = passwordView.getText().toString();
 
         SignUpRequest request = new SignUpRequest(getContext(), name, password, email, "id");
         NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<UserResult<User>>() {
             @Override
             public void onSuccess(NetworkRequest<UserResult<User>> request, UserResult<User> result) {
                 User user = result.getResult();
+                PropertyManager.getInstance().setEmail(email);
+                PropertyManager.getInstance().setPassword(password);
+                PropertyManager.getInstance().setRegId("id");
                 Toast.makeText(getContext(), "user id :" + user.getId(), Toast.LENGTH_SHORT).show();
                 ((LoginActivity)getActivity()).moveMainActivity();
             }

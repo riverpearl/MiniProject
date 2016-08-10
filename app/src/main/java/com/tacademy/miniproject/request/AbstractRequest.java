@@ -20,7 +20,7 @@ public abstract class AbstractRequest<T> extends NetworkRequest<T> {
     protected HttpUrl.Builder getBaseUrlBuilder() {
         HttpUrl.Builder builder = new HttpUrl.Builder();
         builder.scheme("https");
-        builder.host("pearlsminiweb.appspot.com");
+        builder.host("pearlsminichattingapp.appspot.com");
         return builder;
     }
 
