@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.tacademy.miniproject.MainActivity;
 import com.tacademy.miniproject.MyApplication;
@@ -15,6 +16,7 @@ import com.tacademy.miniproject.autodata.UserResult;
 import com.tacademy.miniproject.manager.NetworkManager;
 import com.tacademy.miniproject.manager.NetworkRequest;
 import com.tacademy.miniproject.manager.PropertyManager;
+import com.tacademy.miniproject.request.ProfileRequest;
 import com.tacademy.miniproject.request.SignInRequest;
 
 public class SplashActivity extends AppCompatActivity {
@@ -23,6 +25,31 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        ProfileRequest request = new ProfileRequest(this);
+        Log.d("Splash : ", "request");
+        NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<UserResult<User>>() {
+            @Override
+            public void onSuccess(NetworkRequest<UserResult<User>> request, UserResult<User> result) {
+                Log.d("Splash : ", "profile request");
+                moveMainActivity();
+            }
+
+            @Override
+            public void onFail(NetworkRequest<UserResult<User>> request, int errorCode, String errorMessage, Throwable e) {
+                Log.d("Splash : ", errorMessage.toString());
+                if (errorCode == -1) {
+                    if (errorMessage.equals("not login")) {
+                        loginSharedPreference();
+                        return;
+                    }
+                }
+                moveLoginActivity();
+            }
+        });
+    }
+
+    private void loginSharedPreference() {
 
         if (isLoggedIn()) processAutoLogin();
         else moveLoginActivity();

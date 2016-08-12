@@ -33,8 +33,13 @@ public abstract class NetworkRequest<T> implements Callback {
 
     @Override
     public void onResponse(Call call, Response response) throws IOException {
-        if (response.isSuccessful())
-            sendSuccess(parse(response.body()));
+        if (response.isSuccessful()){
+            try {
+                sendSuccess(parse(response.body()));
+            } catch (IOException e) {
+                sendError(-1, e.getMessage(), e);
+            }
+        }
         else sendError(response.code(), response.message(), null);
     }
 
