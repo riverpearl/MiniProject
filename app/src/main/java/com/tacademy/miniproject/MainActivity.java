@@ -1,6 +1,7 @@
 package com.tacademy.miniproject;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.tacademy.miniproject.autodata.User;
 import com.tacademy.miniproject.autodata.UserResult;
+import com.tacademy.miniproject.chatting.ChatUserFragment;
 import com.tacademy.miniproject.login.LoginActivity;
 import com.tacademy.miniproject.manager.NetworkManager;
 import com.tacademy.miniproject.manager.NetworkRequest;
@@ -25,10 +27,8 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.list_friend)
-    ListView friendsView;
-
-    ArrayAdapter<User> mAdapter;
+    @BindView(R.id.tabhost)
+    FragmentTabHost tabHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,22 +36,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        mAdapter = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1);
-        friendsView.setAdapter(mAdapter);
-
-        FriendListRequest request = new FriendListRequest(this);
-        NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<UserResult<List<User>>>() {
-            @Override
-            public void onSuccess(NetworkRequest<UserResult<List<User>>> request, UserResult<List<User>> result) {
-                List<User> users = result.getResult();
-                mAdapter.addAll(users);
-            }
-
-            @Override
-            public void onFail(NetworkRequest<UserResult<List<User>>> request, int errorCode, String errorMessage, Throwable e) {
-                Toast.makeText(MainActivity.this, "error : " + errorMessage, Toast.LENGTH_SHORT).show();
-            }
-        });
+        tabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
+        tabHost.addTab(tabHost.newTabSpec("main").setIndicator("Main"), MainFragment.class, null);
+        tabHost.addTab(tabHost.newTabSpec("chat").setIndicator("Chat"), ChatUserFragment.class, null);
     }
 
     @Override
