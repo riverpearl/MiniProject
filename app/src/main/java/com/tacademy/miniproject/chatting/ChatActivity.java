@@ -64,6 +64,7 @@ public class ChatActivity extends AppCompatActivity {
         }
 
         DBManager.getInstance().addMessage(user, type, message);
+        inputView.setText("");
         updateMessage();
     }
 

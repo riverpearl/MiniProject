@@ -19,7 +19,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public void changeCursor(Cursor c) {
         if (cursor != null)
-            c.close();
+            cursor.close();
 
         cursor = c;
         notifyDataSetChanged();
