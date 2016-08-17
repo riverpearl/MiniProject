@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.tacademy.miniproject.autodata.User;
 import com.tacademy.miniproject.autodata.UserResult;
 import com.tacademy.miniproject.chatting.ChatUserFragment;
+import com.tacademy.miniproject.content.ContentFragment;
 import com.tacademy.miniproject.login.LoginActivity;
 import com.tacademy.miniproject.manager.NetworkManager;
 import com.tacademy.miniproject.manager.NetworkRequest;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         tabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
         tabHost.addTab(tabHost.newTabSpec("main").setIndicator("Main"), MainFragment.class, null);
         tabHost.addTab(tabHost.newTabSpec("chat").setIndicator("Chat"), ChatUserFragment.class, null);
+        tabHost.addTab(tabHost.newTabSpec("content").setIndicator("Content"), ContentFragment.class, null);
     }
 
     @Override

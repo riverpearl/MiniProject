@@ -62,7 +62,7 @@ public abstract class NetworkRequest<T> implements Callback {
     String errorMessage;
     Throwable exception;
 
-    protected  void sendError(int code, String errorMessage, Throwable exception) {
+    protected void sendError(int code, String errorMessage, Throwable exception) {
         this.code = code;
         this.errorMessage = errorMessage;
         this.exception = exception;

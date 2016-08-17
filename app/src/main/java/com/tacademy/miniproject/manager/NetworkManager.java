@@ -39,6 +39,8 @@ public class NetworkManager {
 
         ClearableCookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(context));
         builder.cookieJar(cookieJar);
+        builder.followRedirects(true);
+        builder.addInterceptor(new RedirectInterceptor());
 
         File cacheDir = new File(context.getCacheDir(), "network");
         if (!cacheDir.exists()) cacheDir.mkdir();
@@ -73,7 +75,6 @@ public class NetworkManager {
 
     public interface OnResultListener<T> {
         public void onSuccess(NetworkRequest<T> request, T result);
-
         public void onFail(NetworkRequest<T> request, int errorCode, String errorMessage, Throwable e);
     }
 
