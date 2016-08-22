@@ -35,11 +35,17 @@ public abstract class AbstractRequest<T> extends NetworkRequest<T> {
                 T result = gson.fromJson(text, getType());
                 return result;
             case 2 :
-            default :
                 Type type = new TypeToken<UserResult<String>>(){}.getType();
                 UserResult<String> fail = gson.fromJson(text, type);
                 throw new IOException(fail.getResult());
+            default :
+                T defaultResult = gson.fromJson(text, getType(code.getCode()));
+                return defaultResult;
         }
+    }
+
+    protected Type getType(int code) {
+        return getType();
     }
 
     protected abstract Type getType();

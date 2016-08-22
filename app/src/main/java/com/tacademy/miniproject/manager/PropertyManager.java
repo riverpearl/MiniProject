@@ -32,6 +32,7 @@ public class PropertyManager {
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_REGID = "registrationId";
+    private static final String KEY_FACEBOOK_ID = "facebookid";
 
     public void setEmail(String email) {
         sEditor.putString(KEY_EMAIL, email);
@@ -58,5 +59,14 @@ public class PropertyManager {
 
     public String getRegId() {
         return sPrefs.getString(KEY_REGID, "");
+    }
+
+    public void setFacebookId(String facebookId) {
+        sEditor.putString(KEY_FACEBOOK_ID, facebookId);
+        sEditor.commit();
+    }
+
+    public String getFacebookId() {
+        return sPrefs.getString(KEY_FACEBOOK_ID, "");
     }
 }

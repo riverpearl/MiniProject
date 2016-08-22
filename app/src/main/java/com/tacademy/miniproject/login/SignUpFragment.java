@@ -54,7 +54,8 @@ public class SignUpFragment extends Fragment {
         final String email = emailView.getText().toString();
         final String password = passwordView.getText().toString();
 
-        SignUpRequest request = new SignUpRequest(getContext(), name, password, email, "id");
+        String regid = PropertyManager.getInstance().getRegId();
+        SignUpRequest request = new SignUpRequest(getContext(), name, password, email, regid);
         NetworkManager.getInstance().getNetworkData(request, new NetworkManager.OnResultListener<UserResult<User>>() {
             @Override
             public void onSuccess(NetworkRequest<UserResult<User>> request, UserResult<User> result) {

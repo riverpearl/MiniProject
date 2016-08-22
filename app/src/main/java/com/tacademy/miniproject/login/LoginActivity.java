@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.tacademy.miniproject.MainActivity;
 import com.tacademy.miniproject.R;
+import com.tacademy.miniproject.data.FacebookUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -19,7 +20,13 @@ public class LoginActivity extends AppCompatActivity {
                     .add(R.id.container, new SignInFragment())
                     .commit();
         }
+    }
 
+    public void changeFacebookSignUp(FacebookUser user) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, FacebookSignUpFragment.newInstance(user))
+                .addToBackStack(null)
+                .commit();
     }
 
     public void changeSignUp() {

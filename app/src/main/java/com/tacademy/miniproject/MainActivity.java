@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
 import com.tacademy.miniproject.autodata.User;
 import com.tacademy.miniproject.autodata.UserResult;
 import com.tacademy.miniproject.chatting.ChatUserFragment;
@@ -60,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
                 public void onSuccess(NetworkRequest<UserResult<String>> request, UserResult<String> result) {
                     PropertyManager.getInstance().setEmail("");
                     PropertyManager.getInstance().setPassword("");
-                    PropertyManager.getInstance().setRegId("");
+//                    PropertyManager.getInstance().setRegId("");
+                    PropertyManager.getInstance().setFacebookId("");
+                    LoginManager.getInstance().logOut();
 
                     // 지금까지 띄워놨던 activity들 다 스택에서 제거하고 로그인창 띄우기
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);

@@ -6,6 +6,7 @@ public class User implements Serializable {
     private long id;
     private String userName;
     private String email;
+    private String facebookId;
 
     public long getId() {
         return this.id;
@@ -29,6 +30,14 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getFacebookId() {
+        return facebookId;
+    }
+
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
     }
 
     @Override
